@@ -65,16 +65,16 @@ function addGenerateCompareUrlButton() {
 		}
 		
 		if(selectedCheckboxes.length === 1) {
-			showNotification('error', 'You have selected too few commits! \n' +
-			'Select 2 commits, one to start compare from \n' +
+			showNotification('error', 'You have selected too few commits!' +
+			'Select 2 commits, one to start compare from' +
 			'and a second to stop the compare on.');
 			
 			return;
 		}
 		
 		if(selectedCheckboxes.length > 2) {
-			showNotification('error', 'You have selected too many commits! \n' +
-			'Only select 2 commits, one to start compare from \n' +
+			showNotification('error', 'You have selected too many commits!' +
+			'Only select 2 commits, one to start compare from' +
 			'and a second to stop the compare on.');
 			
 			return;
