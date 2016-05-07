@@ -72,6 +72,10 @@ function addGenerateCompareUrlButton() {
 		firstSelectedCommitSHA = selectedCheckboxes[0].value;
 		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes + 1].value;
 		
+		if(!firstSelectedCommitSHA || !secondSelectedCommitSHA) {
+			alert('Unknown error occured.');
+		}
+		
 		githubCompareUrl = 'https://github.com/reqtest/reqtest/compare/' +
 							secondSelectedCommitSHA + '...' + firstSelectedCommitSHA;
 		
