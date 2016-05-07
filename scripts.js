@@ -22,32 +22,38 @@ function addGenerateCompareUrlButton() {
 	selectMenu.appendChild(generateCompareUrlButton);
 	
 	function generateCompareUrl() {
-		var selectedCommits,
-			githubCompareUrl;
+		var checkboxes,
+			selectedCheckboxes,
+			firstSelectedCommitSHA,
+			secondSelectedCommitSHA,
+			lastIndexOfSelectedCheckboxes,
+			githubCompareUrl;			;
 			
-		selectedCommits = commitListItems
-				.map(toCheckboxes)
-				.filter(onSelectedCommits)
-				.map(toSHA);
-				
+		checkboxes = commitListItems.map(toCheckboxes);
+		
 		function toCheckboxes(listItem) {
 			return listItem.getElementsByClassName('commit-compare-checkbox')[0];
 		}
-		
-		function onSelectedCommits(checkbox) {
-			return checkbox.checked;
+				
+		selectedCheckboxes = checkboxes
+							.filter(onSelectedCheckboxes);
+				
+		function onSelectedCheckboxes(checkbox, index) {
+			var checkboxIsChecked = checkbox.checked;
+			
+			if(checkboxIsChecked) {
+				lastIndexOfSelectedCheckboxes = index;
+			}
+			
+			return checkboxIsChecked;
 		}
-		
-		function toSHA(checkbox) {
-			return checkbox.value;
-		}
-		
-		if(selectedCommits.length === 0) {
+			
+		if(selectedCheckboxes.length === 0) {
 			alert('You have not selected any commits!');
 			return;
 		}
 		
-		if(selectedCommits.length === 1) {
+		if(selectedCheckboxes.length === 1) {
 			alert('You have selected too few commits! \n' +
 			'Select 2 commits, one to start compare from \n' +
 			'and a second to stop the compare on.');
@@ -55,7 +61,7 @@ function addGenerateCompareUrlButton() {
 			return;
 		}
 		
-		if(selectedCommits.length > 2) {
+		if(selectedCheckboxes.length > 2) {
 			alert('You have selected too many commits! \n' +
 			'Only select 2 commits, one to start compare from \n' +
 			'and a second to stop the compare on.');
@@ -63,10 +69,13 @@ function addGenerateCompareUrlButton() {
 			return;
 		}
 		
-		githubCompareUrl = 'https://github.com/reqtest/reqtest/compare/' +
-							selectedCommits[0] + '...' + selectedCommits[1];
+		firstSelectedCommitSHA = selectedCheckboxes[0].value;
+		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes + 1].value;
 		
-		alert(githubCompareUrl);
+		githubCompareUrl = 'https://github.com/reqtest/reqtest/compare/' +
+							secondSelectedCommitSHA + '...' + firstSelectedCommitSHA;
+		
+		console.log(githubCompareUrl);
 	}
 }
 
@@ -77,7 +86,7 @@ function addCheckboxes() {
 		var sha,
 			checkbox;
 		
-		sha = listItem.getElementsByClassName('sha')[0].text;
+		sha = listItem.getElementsByClassName('sha')[0].text.trim();
 		
 		var checkbox = document.createElement('input');
 		checkbox.type = 'checkbox';
