@@ -16,8 +16,6 @@ addGenerateCompareUrlButton();
 addNotificationContainer();
 addCheckboxes();
 
-alert('hej');
-
 function addGenerateCompareUrlButton() {
 	var selectMenu,
 		generateCompareUrlButton,
