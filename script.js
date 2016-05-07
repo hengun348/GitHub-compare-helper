@@ -1,7 +1,7 @@
 var commitListItems,
 	notificationElement,
 	githubCompareUrl;
-	
+
 commitListItems = Array.from(document.getElementsByClassName('commit'));
 
 function copyFunction(e) {
@@ -15,6 +15,8 @@ function copyFunction(e) {
 addGenerateCompareUrlButton();
 addNotificationContainer();
 addCheckboxes();
+
+alert('hej');
 
 function addGenerateCompareUrlButton() {
 	var selectMenu,
