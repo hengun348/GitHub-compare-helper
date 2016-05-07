@@ -1,6 +1,5 @@
 var commitListItems = Array.from(document.getElementsByClassName('commit'));
 
-
 addGenerateCompareUrlButton();
 addCheckboxes();
 
@@ -27,7 +26,7 @@ function addGenerateCompareUrlButton() {
 			firstSelectedCommitSHA,
 			secondSelectedCommitSHA,
 			lastIndexOfSelectedCheckboxes,
-			githubCompareUrl;			;
+			githubCompareUrl;
 			
 		checkboxes = commitListItems.map(toCheckboxes);
 		
@@ -76,8 +75,25 @@ function addGenerateCompareUrlButton() {
 			alert('Unknown error occured.');
 		}
 		
-		githubCompareUrl = 'https://github.com/reqtest/reqtest/compare/' +
-							secondSelectedCommitSHA + '...' + firstSelectedCommitSHA;
+		githubCompareUrl = baseCompareUrlFromCurrentCommitsUrl();
+		
+		function baseCompareUrlFromCurrentCommitsUrl() {
+			var indexOfCommitsPartOfUrl,
+				githubCommitsUrl,
+				githubCompareUrlLastPart,
+				githubCompareUrl;
+				
+			githubCompareUrlLastPart = 'compare/' + secondSelectedCommitSHA + '...' + firstSelectedCommitSHA;
+			
+			githubCommitsUrl = document.location.href;
+			indexOfCommitsPartOfUrl = githubCommitsUrl.indexOf('commits');
+		
+			githubCommitsUrlFirstPart = githubCommitsUrl.substring(0, indexOfCommitsPartOfUrl);
+		
+			githubCompareUrl = githubCommitsUrlFirstPart + githubCompareUrlLastPart;
+			
+			return githubCompareUrl;
+		}
 		
 		console.log(githubCompareUrl);
 	}
