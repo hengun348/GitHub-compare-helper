@@ -14,7 +14,7 @@
 		{
 			"matches": ["https://github.com/*/commits/*"],
 			"css": ["styles.css"],
-			"js": ["scripts.js"]
+			"js": ["script.js"]
 		}
 	],
 	"permissions" : [
