@@ -1,4 +1,5 @@
 var commitListItems,
+	notificationElement,
 	githubCompareUrl;
 	
 commitListItems = Array.from(document.getElementsByClassName('commit'));
@@ -12,6 +13,7 @@ function copyFunction(e) {
 }
 
 addGenerateCompareUrlButton();
+addNotificationContainer();
 addCheckboxes();
 
 function addGenerateCompareUrlButton() {
@@ -58,12 +60,12 @@ function addGenerateCompareUrlButton() {
 		}
 			
 		if(selectedCheckboxes.length === 0) {
-			alert('You have not selected any commits!');
+			showNotification('error', 'You have not selected any commits!');
 			return;
 		}
 		
 		if(selectedCheckboxes.length === 1) {
-			alert('You have selected too few commits! \n' +
+			showNotification('error', 'You have selected too few commits! \n' +
 			'Select 2 commits, one to start compare from \n' +
 			'and a second to stop the compare on.');
 			
@@ -71,7 +73,7 @@ function addGenerateCompareUrlButton() {
 		}
 		
 		if(selectedCheckboxes.length > 2) {
-			alert('You have selected too many commits! \n' +
+			showNotification('error', 'You have selected too many commits! \n' +
 			'Only select 2 commits, one to start compare from \n' +
 			'and a second to stop the compare on.');
 			
@@ -82,13 +84,13 @@ function addGenerateCompareUrlButton() {
 		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes + 1].value;
 		
 		if(!firstSelectedCommitSHA || !secondSelectedCommitSHA) {
-			alert('Unknown error occured.');
+			showNotification('error', 'Unknown error occured.');
 		}
 		
 		githubCompareUrl = baseCompareUrlFromCurrentCommitsUrl();
 		
 		if(!githubCompareUrl) {
-			alert('Could not generate compare url!');
+			showNotification('error', 'Could not generate compare url!');
 		}
 		
 		function baseCompareUrlFromCurrentCommitsUrl() {
@@ -113,12 +115,23 @@ function addGenerateCompareUrlButton() {
 				document.addEventListener('copy', copyFunction);
 				document.execCommand('copy');
 				
-				console.log('Compare url copied to clipboard.');  
+				showNotification('success', 'Compare url copied to clipboard.');  
 			} catch(err) {  
-				alert('Unable to copy compare url to clipboard!');  
+				showNotification('error', 'Unable to copy compare url to clipboard!');  
 			}  
 		}
 	}
+}
+
+function addNotificationContainer() {
+	var fileNavigationElement;
+		
+	fileNavigationElement = document.getElementsByClassName('file-navigation')[0];
+	
+	notificationElement = document.createElement('div');
+	notificationElement.id = 'compare-helper-notification';
+	
+	fileNavigationElement.appendChild(notificationElement);
 }
 
 function addCheckboxes() {
@@ -137,4 +150,14 @@ function addCheckboxes() {
 		
 		listItem.appendChild(checkbox);
 	}
+}
+
+function showNotification(type, text) {
+	if(type === 'error') {
+		notificationElement.className = 'error';
+	} else {
+		notificationElement.className = 'success';
+	}
+	
+	notificationElement.innerHTML = text;
 }

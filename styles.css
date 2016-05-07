@@ -25,6 +25,26 @@
 	-webkit-appearance: none;
 }
 
+#compare-helper-notification {
+	display: inline-block;
+	margin-top: 4px;
+	margin-left: 6px;
+    line-height: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+}
+
+.error {
+	color: red;
+}
+
+.success {
+	color: green;
+}
+
 .commit-compare-checkbox {
 	position: absolute;
 	left: 0;
