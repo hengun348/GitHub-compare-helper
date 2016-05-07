@@ -18,7 +18,9 @@
 		}
 	],
 	"permissions" : [
-		"declarativeContent"
+		"declarativeContent",
+		"tabs",
+		"https://github.com/*/commits/*"
 	],
 	"icons" : {
 		"48" : "icon-48.png",

@@ -14,5 +14,16 @@ chrome.runtime.onInstalled.addListener(function() {
 		actions: [ new chrome.declarativeContent.ShowPageAction() ]
 	  } 
 	]);
-  });
+  });  
 });
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+	if(changeInfo.url.includes('commits')) {
+    	setTimeout(injectScripts, 500);
+	}
+});
+
+function injectScripts() {
+	chrome.tabs.executeScript(null, {file: "script.js"});
+	chrome.tabs.insertCSS(null, {file: "styles.css"});
+}
