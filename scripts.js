@@ -92,7 +92,7 @@ function addCheckboxes() {
 		
 		sha = listItem.getElementsByClassName('sha')[0].text.trim();
 		
-		var checkbox = document.createElement('input');
+		checkbox = document.createElement('input');
 		checkbox.type = 'checkbox';
 		checkbox.value = sha;
 		checkbox.className = 'commit-compare-checkbox';
