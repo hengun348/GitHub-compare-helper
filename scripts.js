@@ -42,6 +42,27 @@ function addGenerateCompareUrlButton() {
 			return checkbox.value;
 		}
 		
+		if(selectedCommits.length === 0) {
+			alert('You have not selected any commits!');
+			return;
+		}
+		
+		if(selectedCommits.length === 1) {
+			alert('You have selected too few commits! \n' +
+			'Select 2 commits, one to start compare from \n' +
+			'and a second to stop the compare on.');
+			
+			return;
+		}
+		
+		if(selectedCommits.length > 2) {
+			alert('You have selected too many commits! \n' +
+			'Only select 2 commits, one to start compare from \n' +
+			'and a second to stop the compare on.');
+			
+			return;
+		}
+		
 		githubCompareUrl = 'https://github.com/reqtest/reqtest/compare/' +
 							selectedCommits[0] + '...' + selectedCommits[1];
 		
