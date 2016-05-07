@@ -1,4 +1,15 @@
-var commitListItems = Array.from(document.getElementsByClassName('commit'));
+var commitListItems,
+	githubCompareUrl;
+	
+commitListItems = Array.from(document.getElementsByClassName('commit'));
+
+function copyFunction(e) {
+	e.clipboardData.setData('text/plain', githubCompareUrl);
+	e.preventDefault();
+	
+	githubCompareUrl = undefined;
+	document.removeEventListener('copy', copyFunction);
+}
 
 addGenerateCompareUrlButton();
 addCheckboxes();
@@ -25,8 +36,7 @@ function addGenerateCompareUrlButton() {
 			selectedCheckboxes,
 			firstSelectedCommitSHA,
 			secondSelectedCommitSHA,
-			lastIndexOfSelectedCheckboxes,
-			githubCompareUrl;
+			lastIndexOfSelectedCheckboxes;
 			
 		checkboxes = commitListItems.map(toCheckboxes);
 		
@@ -77,11 +87,14 @@ function addGenerateCompareUrlButton() {
 		
 		githubCompareUrl = baseCompareUrlFromCurrentCommitsUrl();
 		
+		if(!githubCompareUrl) {
+			alert('Could not generate compare url!');
+		}
+		
 		function baseCompareUrlFromCurrentCommitsUrl() {
 			var indexOfCommitsPartOfUrl,
 				githubCommitsUrl,
-				githubCompareUrlLastPart,
-				githubCompareUrl;
+				githubCompareUrlLastPart
 				
 			githubCompareUrlLastPart = 'compare/' + secondSelectedCommitSHA + '...' + firstSelectedCommitSHA;
 			
@@ -90,12 +103,21 @@ function addGenerateCompareUrlButton() {
 		
 			githubCommitsUrlFirstPart = githubCommitsUrl.substring(0, indexOfCommitsPartOfUrl);
 		
-			githubCompareUrl = githubCommitsUrlFirstPart + githubCompareUrlLastPart;
-			
-			return githubCompareUrl;
+			return githubCommitsUrlFirstPart + githubCompareUrlLastPart;
 		}
 		
-		console.log(githubCompareUrl);
+		copyCompareUrlToClipBoard();
+		
+		function copyCompareUrlToClipBoard() {
+			try {  
+				document.addEventListener('copy', copyFunction);
+				document.execCommand('copy');
+				
+				console.log('Compare url copied to clipboard.');  
+			} catch(err) {  
+				alert('Unable to copy compare url to clipboard!');  
+			}  
+		}
 	}
 }
 
@@ -116,4 +138,3 @@ function addCheckboxes() {
 		listItem.appendChild(checkbox);
 	}
 }
-
