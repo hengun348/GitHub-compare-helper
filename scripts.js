@@ -84,7 +84,7 @@ function addGenerateCompareUrlButton() {
 		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes + 1].value;
 		
 		if(!firstSelectedCommitSHA || !secondSelectedCommitSHA) {
-			showNotification('error', 'Unknown error occured.');
+			showNotification('error', 'Could not find commits SHAs.');
 		}
 		
 		githubCompareUrl = baseCompareUrlFromCurrentCommitsUrl();
