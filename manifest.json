@@ -1,21 +1,28 @@
 {
-  "name": "GitHub compare helper",
-  "version": "1.0",
-  "description": "Add UI to GitHub commit pages to easier create GitHub compare urls",
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
-  "page_action" :
-  {
-    "default_icon" : "icon-19.png"
-  },
-  "permissions" : [
-    "declarativeContent"
-  ],
-  "icons" : {
-    "48" : "icon-48.png",
-    "128" : "icon-128.png"
-  },
-  "manifest_version": 2
+	"name": "GitHub compare helper",
+	"version": "1.0",
+	"description": "Add UI to GitHub commit pages to easier create GitHub compare urls",
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	},
+	"page_action" :
+	{
+		"default_icon" : "icon-19.png"
+	},
+	"content_scripts": [
+		{
+			"matches": ["https://github.com/*/commits/*"],
+			"css": ["styles.css"],
+			"js": ["scripts.js"]
+		}
+	],
+	"permissions" : [
+		"declarativeContent"
+	],
+	"icons" : {
+		"48" : "icon-48.png",
+		"128" : "icon-128.png"
+	},
+	"manifest_version": 2
 }
