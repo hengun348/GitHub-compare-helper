@@ -1,7 +1,7 @@
 {
 	"name": "GitHub compare helper",
 	"version": "1.0",
-	"description": "Add UI to GitHub commit pages to easier create GitHub compare urls",
+	"description": "Adds UI to GitHub commit pages to easier create GitHub compare urls",
 	"background": {
 		"scripts": ["background.js"],
 		"persistent": false
