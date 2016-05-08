@@ -12,9 +12,15 @@ function copyFunction(e) {
 	document.removeEventListener('copy', copyFunction);
 }
 
-addGenerateCompareUrlButton();
-addNotificationContainer();
-addCheckboxes();
+if(extensionIsNotInitialized()) {
+	addGenerateCompareUrlButton();
+	addNotificationContainer();
+	addCheckboxes();
+}
+
+function extensionIsNotInitialized() {
+	return !document.getElementById('generate-compare-url-button');
+}
 
 function addGenerateCompareUrlButton() {
 	var selectMenu,
