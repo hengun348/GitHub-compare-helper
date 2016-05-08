@@ -1,7 +1,7 @@
 # GitHub-compare-helper
 Adds UI to GitHub commits pages to easier create GitHub compare urls
 
-<img src="/screenshot with instructions.jpg" alt="" style="max-width:40%;">
+<img src="/screenshot with instructions.jpg" alt="" width="90%">
 
 ## Why
 
