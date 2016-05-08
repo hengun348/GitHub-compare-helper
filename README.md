@@ -1,5 +1,5 @@
 # GitHub-compare-helper
-Adds UI to GitHub commits pages to easier create GitHub compare urls
+Chrome extension that adds UI to GitHub commits pages to easier create GitHub compare urls
 
 <img src="/screenshot with instructions.jpg" alt="" width="90%">
 
@@ -11,4 +11,4 @@ Therefore I made this extension that simplifies the task. Enjoy!
 
 ## Install
 
-<a href="https://chrome.google.com/webstore/detail/github-compare-helper/cioiakfpohjbldapjdenhmdenmdcdigd">Chrome extension</a>
+<a href="https://chrome.google.com/webstore/detail/github-compare-helper/cioiakfpohjbldapjdenhmdenmdcdigd">Press here</a>
