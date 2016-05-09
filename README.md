@@ -1,7 +1,7 @@
 # GitHub-compare-helper
 Chrome extension that adds UI to GitHub commits pages to easier create GitHub compare urls
 
-<img src="/screenshot with instructions.jpg" alt="" width="90%">
+<img src="/screenshot with instructions.png" alt="" width="90%">
 
 ## Why
 
