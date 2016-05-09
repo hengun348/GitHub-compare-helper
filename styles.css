@@ -55,3 +55,7 @@
 	margin-top: 21px;
 	margin-left: 21px;
 }
+
+.table-list {
+	table-layout: auto !important;
+}
