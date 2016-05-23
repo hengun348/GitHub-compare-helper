@@ -149,9 +149,63 @@ function addCheckboxes() {
 		checkbox = document.createElement('input');
 		checkbox.type = 'checkbox';
 		checkbox.value = sha;
+		checkbox.onclick = highlightRange;
 		checkbox.className = 'commit-compare-checkbox';
 		
 		listItem.appendChild(checkbox);
+
+		function highlightRange() {
+			var allCheckboxes = getAllCheckboxElements(),
+				selectedCheckboxes = getSelectedCheckboxes(allCheckboxes),
+				foundFirstSelectedCheckbox = false,
+				foundSecondSelectedCheckbox = false;
+				
+			if(selectedCheckboxes.length < 2) {
+				enableAllCheckboxes();
+				return;
+			}
+			
+			allCheckboxes.forEach(disableBasedOnSelection);
+			
+			function disableBasedOnSelection(checkbox) {
+				if(!foundFirstSelectedCheckbox) {
+					disableUntilFirstCheckboxFound(checkbox);
+				} 
+				
+				if(!foundSecondSelectedCheckbox) {
+					verifyIsSecondSelected(checkbox);
+				} else {
+					disableAndUncheckAfterSecondCheckboxFound(checkbox);
+				}
+			}
+			
+			function disableAndUncheckAfterSecondCheckboxFound(checkbox) {
+				checkbox.disabled = true;
+				checkbox.checked = false;
+			}
+			
+			function disableUntilFirstCheckboxFound(checkbox) {
+				if(checkbox.value !== selectedCheckboxes[0].value) {
+					checkbox.disabled = true;
+				} else {
+					foundFirstSelectedCheckbox = true;
+				}
+			}
+			
+			function verifyIsSecondSelected(checkbox) {
+				if(checkbox.value === selectedCheckboxes[1].value) {
+					foundSecondSelectedCheckbox = true;
+				}
+			}
+			
+			function enableAllCheckboxes() {
+				allCheckboxes.forEach(disableIt);
+				
+				function disableIt(checkbox) {
+					checkbox.disabled = false;
+				}
+			}
+		}
 	}
 }
 
