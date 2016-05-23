@@ -96,7 +96,8 @@ function addGenerateCompareUrlButton() {
 		function baseCompareUrlFromCurrentCommitsUrl() {
 			var indexOfCommitsPartOfUrl,
 				githubCommitsUrl,
-				githubCompareUrlLastPart
+				githubCommitsUrlFirstPart,
+				githubCompareUrlLastPart;
 				
 			githubCompareUrlLastPart = 'compare/' + secondSelectedCommitSHA + '...' + firstSelectedCommitSHA;
 			
