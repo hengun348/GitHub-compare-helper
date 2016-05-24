@@ -199,9 +199,9 @@ function addCheckboxes() {
 			}
 			
 			function enableAllCheckboxes() {
-				allCheckboxes.forEach(disableIt);
+				allCheckboxes.forEach(enableIt);
 				
-				function disableIt(checkbox) {
+				function enableIt(checkbox) {
 					checkbox.disabled = false;
 				}
 			}
