@@ -1,6 +1,7 @@
 var commitListItems,
 	notificationElement,
-	githubCompareUrl;
+	githubCompareUrl,
+	lastIndexOfSelectedCheckboxes;
 
 commitListItems = Array.from(document.getElementsByClassName('commit'));
 
@@ -75,11 +76,6 @@ function addGenerateCompareUrlButton() {
 			return;
 		}
 		
-		if(selectedCheckboxes.length > 2) {
-			showNotification('error', 'You have selected too many commits! Only select 2 commits.');
-			return;
-		}
-		
 		firstSelectedCommitSHA = selectedCheckboxes[0].value;
 		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes + 1].value;
 		
@@ -108,7 +104,9 @@ function addGenerateCompareUrlButton() {
 			return githubCommitsUrlFirstPart + githubCompareUrlLastPart;
 		}
 		
-		copyCompareUrlToClipBoard();
+		window.location = githubCompareUrl;
+		
+		/*copyCompareUrlToClipBoard();
 		
 		function copyCompareUrlToClipBoard() {
 			try {  
@@ -119,7 +117,30 @@ function addGenerateCompareUrlButton() {
 			} catch(err) {  
 				showNotification('error', 'Unable to copy compare url to clipboard!');  
 			}  
+		}*/
+	}
+}
+
+
+function getAllCheckboxElements() {
+	return commitListItems.map(toCheckboxes);
+
+	function toCheckboxes(listItem) {
+		return listItem.getElementsByClassName('commit-compare-checkbox')[0];
+	}
+}
+
+function getSelectedCheckboxes(checkboxes) {
+	return checkboxes.filter(onSelectedCheckboxes);
+				
+	function onSelectedCheckboxes(checkbox, index) {
+		var checkboxIsChecked = checkbox.checked;
+		
+		if(checkboxIsChecked) {
+			lastIndexOfSelectedCheckboxes = index;
 		}
+		
+		return checkboxIsChecked;
 	}
 }
 
