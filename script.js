@@ -44,27 +44,10 @@ function addGenerateCompareUrlButton() {
 		var checkboxes,
 			selectedCheckboxes,
 			firstSelectedCommitSHA,
-			secondSelectedCommitSHA,
-			lastIndexOfSelectedCheckboxes;
+			secondSelectedCommitSHA;
 			
-		checkboxes = commitListItems.map(toCheckboxes);
-		
-		function toCheckboxes(listItem) {
-			return listItem.getElementsByClassName('commit-compare-checkbox')[0];
-		}
-				
-		selectedCheckboxes = checkboxes
-							.filter(onSelectedCheckboxes);
-				
-		function onSelectedCheckboxes(checkbox, index) {
-			var checkboxIsChecked = checkbox.checked;
-			
-			if(checkboxIsChecked) {
-				lastIndexOfSelectedCheckboxes = index;
-			}
-			
-			return checkboxIsChecked;
-		}
+		checkboxes = getAllCheckboxElements();
+		selectedCheckboxes = getSelectedCheckboxes(checkboxes);
 			
 		if(selectedCheckboxes.length === 0) {
 			showNotification('error', 'You have not selected any commits!');
@@ -77,7 +60,7 @@ function addGenerateCompareUrlButton() {
 		}
 		
 		firstSelectedCommitSHA = selectedCheckboxes[0].value;
-		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes + 1].value;
+		secondSelectedCommitSHA = selectedCheckboxes[1].value;
 		
 		if(!firstSelectedCommitSHA || !secondSelectedCommitSHA) {
 			showNotification('error', 'Could not find commits SHAs.');
@@ -92,7 +75,8 @@ function addGenerateCompareUrlButton() {
 		function baseCompareUrlFromCurrentCommitsUrl() {
 			var indexOfCommitsPartOfUrl,
 				githubCommitsUrl,
-				githubCompareUrlLastPart
+				githubCommitsUrlFirstPart,
+				githubCompareUrlLastPart;
 				
 			githubCompareUrlLastPart = 'compare/' + secondSelectedCommitSHA + '...' + firstSelectedCommitSHA;
 			
@@ -144,6 +128,25 @@ function getSelectedCheckboxes(checkboxes) {
 	}
 }
 
+function getAllCheckboxElements() {
+	return commitListItems.map(toCheckboxes);
+
+	function toCheckboxes(listItem) {
+		return listItem.getElementsByClassName('commit-compare-checkbox')[0];
+	}
+}
+
+function getSelectedCheckboxes(checkboxes) {
+	return checkboxes.filter(onSelectedCheckboxes);
+				
+	function onSelectedCheckboxes(checkbox) {
+		var checkboxIsChecked = checkbox.checked;
+		
+		return checkboxIsChecked;
+	}
+}
+
+
 function addNotificationContainer() {
 	var fileNavigationElement;
 		
@@ -167,9 +170,63 @@ function addCheckboxes() {
 		checkbox = document.createElement('input');
 		checkbox.type = 'checkbox';
 		checkbox.value = sha;
+		checkbox.onclick = highlightRange;
 		checkbox.className = 'commit-compare-checkbox';
 		
 		listItem.appendChild(checkbox);
+
+		function highlightRange() {
+			var allCheckboxes = getAllCheckboxElements(),
+				selectedCheckboxes = getSelectedCheckboxes(allCheckboxes),
+				foundFirstSelectedCheckbox = false,
+				foundSecondSelectedCheckbox = false;
+				
+			if(selectedCheckboxes.length < 2) {
+				enableAllCheckboxes();
+				return;
+			}
+			
+			allCheckboxes.forEach(disableBasedOnSelection);
+			
+			function disableBasedOnSelection(checkbox) {
+				if(!foundFirstSelectedCheckbox) {
+					disableUntilFirstCheckboxFound(checkbox);
+				} 
+				
+				if(!foundSecondSelectedCheckbox) {
+					verifyIsSecondSelected(checkbox);
+				} else {
+					disableAndUncheckAfterSecondCheckboxFound(checkbox);
+				}
+			}
+			
+			function disableAndUncheckAfterSecondCheckboxFound(checkbox) {
+				checkbox.disabled = true;
+				checkbox.checked = false;
+			}
+			
+			function disableUntilFirstCheckboxFound(checkbox) {
+				if(checkbox.value !== selectedCheckboxes[0].value) {
+					checkbox.disabled = true;
+				} else {
+					foundFirstSelectedCheckbox = true;
+				}
+			}
+			
+			function verifyIsSecondSelected(checkbox) {
+				if(checkbox.value === selectedCheckboxes[1].value) {
+					foundSecondSelectedCheckbox = true;
+				}
+			}
+			
+			function enableAllCheckboxes() {
+				allCheckboxes.forEach(enableIt);
+				
+				function enableIt(checkbox) {
+					checkbox.disabled = false;
+				}
+			}
+		}
 	}
 }
 
