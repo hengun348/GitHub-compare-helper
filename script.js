@@ -60,7 +60,7 @@ function addGenerateCompareUrlButton() {
 		}
 		
 		firstSelectedCommitSHA = selectedCheckboxes[0].value;
-		secondSelectedCommitSHA = selectedCheckboxes[1].value;
+		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes + 1].value;
 		
 		if(!firstSelectedCommitSHA || !secondSelectedCommitSHA) {
 			showNotification('error', 'Could not find commits SHAs.');
@@ -135,17 +135,6 @@ function getAllCheckboxElements() {
 		return listItem.getElementsByClassName('commit-compare-checkbox')[0];
 	}
 }
-
-function getSelectedCheckboxes(checkboxes) {
-	return checkboxes.filter(onSelectedCheckboxes);
-				
-	function onSelectedCheckboxes(checkbox) {
-		var checkboxIsChecked = checkbox.checked;
-		
-		return checkboxIsChecked;
-	}
-}
-
 
 function addNotificationContainer() {
 	var fileNavigationElement;
