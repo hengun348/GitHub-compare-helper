@@ -67,7 +67,7 @@ function addGenerateCompareUrlButton() {
 		
 		firstSelectedCommitSHA = selectedCheckboxes[0].value;
 		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes + 1].value;
-		
+
 		if(!firstSelectedCommitSHA || !secondSelectedCommitSHA) {
 			showNotification('error', 'Could not find commits SHAs.');
 		}
@@ -143,9 +143,13 @@ function addNotificationContainer() {
 function addCheckboxes() {
 	commitListItems.forEach(appendCheckbox);
 	
-	function appendCheckbox(listItem) {
+	function appendCheckbox(listItem, index) {
 		var sha,
 			checkbox;
+
+		if(lastCommitOnPage()) {
+			return;
+		}
 		
 		sha = listItem.getElementsByClassName('sha')[0].text.trim();
 		
@@ -156,6 +160,10 @@ function addCheckboxes() {
 		checkbox.className = 'commit-compare-checkbox';
 		
 		listItem.appendChild(checkbox);
+
+		function lastCommitOnPage() {
+			return index === commitListItems.length - 1;
+		}
 
 		function highlightRange() {
 			var allCheckboxes = getAllCheckboxElements(),
