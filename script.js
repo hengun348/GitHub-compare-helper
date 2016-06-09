@@ -3,8 +3,6 @@ var commitListItems,
 	githubCompareUrl,
 	lastIndexOfSelectedCheckboxes;
 
-commitListItems = Array.from(document.getElementsByClassName('commit'));
-
 if(extensionIsNotInitialized()) {
 	startPollingIfPageIsRendered();
 }
@@ -20,6 +18,8 @@ function startPollingIfPageIsRendered() {
 }
 
 function drawElements() {
+	commitListItems = Array.from(document.getElementsByClassName('commit'));
+
 	addGenerateCompareUrlButton();
 	addNotificationContainer();
 	addCheckboxes();
