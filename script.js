@@ -14,6 +14,20 @@ function copyFunction(e) {
 }
 
 if(extensionIsNotInitialized()) {
+	startPollingIfPageIsRendered();
+}
+
+function startPollingIfPageIsRendered() {
+	var commitsListIsVisible = !!Array.from(document.getElementsByClassName('commits-listing')).length;
+	
+	if(commitsListIsVisible) {
+		drawElements();
+	} else { 
+		setTimeout(startPollingIfPageIsRendered, 500);
+	}
+}
+
+function drawElements() {
 	addGenerateCompareUrlButton();
 	addNotificationContainer();
 	addCheckboxes();
