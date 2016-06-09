@@ -138,10 +138,6 @@ function addCheckboxes() {
 	function appendCheckbox(listItem, index) {
 		var sha,
 			checkbox;
-
-		if(lastCommitOnPage()) {
-			return;
-		}
 		
 		sha = listItem.getElementsByClassName('sha')[0].text.trim();
 		
@@ -153,8 +149,8 @@ function addCheckboxes() {
 		
 		listItem.appendChild(checkbox);
 
-		function lastCommitOnPage() {
-			return index === commitListItems.length - 1;
+		if(index === commitListItems.length -1) {
+			checkbox.style.visibility = "hidden";
 		}
 
 		function highlightRange() {
