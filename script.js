@@ -121,14 +121,6 @@ function getSelectedCheckboxes(checkboxes) {
 	}
 }
 
-function getAllCheckboxElements() {
-	return commitListItems.map(toCheckboxes);
-
-	function toCheckboxes(listItem) {
-		return listItem.getElementsByClassName('commit-compare-checkbox')[0];
-	}
-}
-
 function addNotificationContainer() {
 	var fileNavigationElement;
 		
