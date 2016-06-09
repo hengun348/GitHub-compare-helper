@@ -5,14 +5,6 @@ var commitListItems,
 
 commitListItems = Array.from(document.getElementsByClassName('commit'));
 
-function copyFunction(e) {
-	e.clipboardData.setData('text/plain', githubCompareUrl);
-	e.preventDefault();
-	
-	githubCompareUrl = undefined;
-	document.removeEventListener('copy', copyFunction);
-}
-
 if(extensionIsNotInitialized()) {
 	startPollingIfPageIsRendered();
 }
@@ -103,19 +95,6 @@ function addGenerateCompareUrlButton() {
 		}
 		
 		window.location = githubCompareUrl;
-		
-		/*copyCompareUrlToClipBoard();
-		
-		function copyCompareUrlToClipBoard() {
-			try {  
-				document.addEventListener('copy', copyFunction);
-				document.execCommand('copy');
-				
-				showNotification('success', 'Compare url copied to clipboard.');  
-			} catch(err) {  
-				showNotification('error', 'Unable to copy compare url to clipboard!');  
-			}  
-		}*/
 	}
 }
 
