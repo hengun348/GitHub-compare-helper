@@ -40,7 +40,7 @@ function addGenerateCompareUrlButton() {
 	generateCompareUrlButton.id = 'generate-compare-url-button';
 	generateCompareUrlButton.onclick = generateCompareUrl;
 	
-	textNode = document.createTextNode('Generate compare url')
+	textNode = document.createTextNode('Generate compare url');
 	
 	generateCompareUrlButton.appendChild(textNode);
 	
