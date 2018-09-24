@@ -1,6 +1,6 @@
 {
 	"name": "GitHub compare helper",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Adds UI to GitHub commits pages to easier create GitHub compare urls",
 	"author": "Henrik Gunnarsson",
 	"background": {
@@ -13,15 +13,24 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["https://github.com/*/commits/*"],
+			"matches": [
+				"https://github.com/*/commits/*"
+			],
 			"css": ["styles.css"],
-			"js": ["script.js"]
+			"js": ["common.js", "script-project.js"]
+		},
+		{
+			"matches": [
+				"https://github.com/*/*/pull/*/commits"
+			],
+			"css": ["styles.css"],
+			"js": ["common.js", "script-pr.js"]
 		}
 	],
 	"permissions" : [
 		"declarativeContent",
 		"tabs",
-		"https://github.com/*/commits/*"
+		"https://github.com/*"
 	],
 	"icons" : {
 		"19" : "icon-19.png",
