@@ -18,9 +18,9 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-	if(changeInfo.url.includes('commits')) {
-  	injectScripts();
-	}
+	if(tab.url.includes('commits') && changeInfo.status === 'complete') {
+		injectScripts();
+  	}
 });
 
 function injectScripts() {

@@ -3,7 +3,7 @@ var commitListItems,
 	githubCompareUrl,
 	lastIndexOfSelectedCheckboxes;
 
-if(extensionIsNotInitialized()) {
+if (extensionIsNotInitialized()) {
 	startPollingIfPageIsRendered();
 }
 
@@ -34,7 +34,7 @@ function addGenerateCompareUrlButton() {
 		generateCompareUrlButton,
 		textNode;
 		
-	selectMenu = document.getElementsByClassName('branch-select-menu')[0];
+	selectMenu = document.getElementsByClassName('file-navigation')[0];
 	
 	generateCompareUrlButton = document.createElement('button');
 	generateCompareUrlButton.id = 'generate-compare-url-button';
@@ -44,7 +44,7 @@ function addGenerateCompareUrlButton() {
 	
 	generateCompareUrlButton.appendChild(textNode);
 	
-	selectMenu.appendChild(generateCompareUrlButton);
+	selectMenu.prepend(generateCompareUrlButton);
 	
 	function generateCompareUrl() {
 		var checkboxes,
@@ -94,7 +94,7 @@ function addGenerateCompareUrlButton() {
 			return githubCommitsUrlFirstPart + githubCompareUrlLastPart;
 		}
 		
-		window.location = githubCompareUrl;
+		window.location.href = githubCompareUrl;
 	}
 }
 
