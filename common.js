@@ -12,8 +12,9 @@ function drawElements(buttonDestinationClass) {
 }
 
 function addGenerateCompareUrlButton(buttonDestination) {
-	var generateCompareUrlButton,
+	let generateCompareUrlButton,
 		textNode;
+	
 	generateCompareUrlButton = document.createElement('button');
 	generateCompareUrlButton.id = 'generate-compare-url-button';
 	generateCompareUrlButton.onclick = generateCompareUrl;
@@ -25,10 +26,10 @@ function addGenerateCompareUrlButton(buttonDestination) {
 	buttonDestination.prepend(generateCompareUrlButton);
 
 	function generateCompareUrl() {
-		var checkboxes,
+		let checkboxes,
 			selectedCheckboxes,
-			firstSelectedCommitSHA,
-			secondSelectedCommitSHA;
+			topSelectedCommitSHA,
+			bottomSelectedCommitSHA;
 
 		checkboxes = getAllCheckboxElements();
 		selectedCheckboxes = getSelectedCheckboxes(checkboxes);
@@ -43,10 +44,10 @@ function addGenerateCompareUrlButton(buttonDestination) {
 			return;
 		}
 
-		firstSelectedCommitSHA = selectedCheckboxes[0].value;
-		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes].value;
+		topSelectedCommitSHA = selectedCheckboxes[0].value;
+		bottomSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes].value;
 
-		if(!firstSelectedCommitSHA || !secondSelectedCommitSHA) {
+		if(!topSelectedCommitSHA || !bottomSelectedCommitSHA) {
 			alert('Could not find commits SHAs.');
 		}
 
@@ -57,11 +58,16 @@ function addGenerateCompareUrlButton(buttonDestination) {
 		}
 
 		function baseCompareUrlFromCurrentCommitsUrl() {
-			var githubCommitsUrl,
+			let githubCommitsUrl,
 				repoUrl,
-				githubCompareUrlLastPart;
-
-			githubCompareUrlLastPart = '/compare/' + secondSelectedCommitSHA + '...' + firstSelectedCommitSHA;
+				githubCompareUrlLastPart,
+				isPullRequestPage = document.location.href.includes('/pull/');
+			
+			if (isPullRequestPage) {
+				githubCompareUrlLastPart = '/compare/' + topSelectedCommitSHA + '...' + bottomSelectedCommitSHA;
+			} else {
+				githubCompareUrlLastPart = '/compare/' + bottomSelectedCommitSHA + '...' + topSelectedCommitSHA;
+			}
 
 			githubCommitsUrl = document.location.href;
 
@@ -87,7 +93,7 @@ function getSelectedCheckboxes(checkboxes) {
 	return checkboxes.filter(onSelectedCheckboxes);
 
 	function onSelectedCheckboxes(checkbox, index) {
-		var checkboxIsChecked = checkbox.checked;
+		const checkboxIsChecked = checkbox.checked;
 
 		if(checkboxIsChecked) {
 			lastIndexOfSelectedCheckboxes = index;
@@ -102,7 +108,7 @@ function addCheckboxes() {
 	commitListItems.forEach(appendCheckbox);
 
 	function appendCheckbox(listItem) {
-		var sha,
+		let sha,
 			checkbox;
 
 		sha = listItem.getElementsByClassName('sha')[0].text.trim();
@@ -116,7 +122,7 @@ function addCheckboxes() {
 		listItem.appendChild(checkbox);
 
 		function highlightRange() {
-			var allCheckboxes = getAllCheckboxElements(),
+			let allCheckboxes = getAllCheckboxElements(),
 				selectedCheckboxes = getSelectedCheckboxes(allCheckboxes),
 				foundFirstSelectedCheckbox = false,
 				foundSecondSelectedCheckbox = false;
