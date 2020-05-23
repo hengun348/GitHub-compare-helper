@@ -1,29 +1,40 @@
 chrome.runtime.onInstalled.addListener(function() {
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-	  
+
 	chrome.declarativeContent.onPageChanged.addRules([
 	  {
 		conditions: [
 		  new chrome.declarativeContent.PageStateMatcher({
-			pageUrl: { 
-				hostEquals: 'github.com', 
+			pageUrl: {
+				hostEquals: 'github.com',
 				pathContains: 'commits'
 			},
 		  })
 		],
 		actions: [ new chrome.declarativeContent.ShowPageAction() ]
-	  } 
+	  }
 	]);
-  });  
+  });
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	if(tab.url.includes('commits') && changeInfo.status === 'complete') {
-		injectScripts();
-  	}
+		if (tab.url.includes('/pull/')) {
+			injectPullRequestScripts();
+		} else {
+            injectProjectScripts();
+        }
+	}
 });
 
-function injectScripts() {
-	chrome.tabs.executeScript(null, {file: "script.js"});
+function injectProjectScripts() {
+	chrome.tabs.executeScript(null, {file: "common.js"});
+	chrome.tabs.executeScript(null, {file: "script-project.js"});
+	chrome.tabs.insertCSS(null, {file: "styles.css"});
+}
+
+function injectPullRequestScripts() {
+	chrome.tabs.executeScript(null, {file: "common.js"});
+	chrome.tabs.executeScript(null, {file: "script-pr.js"});
 	chrome.tabs.insertCSS(null, {file: "styles.css"});
 }

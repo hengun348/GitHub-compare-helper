@@ -13,15 +13,24 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["https://github.com/*/commits/*"],
+			"matches": [
+				"https://github.com/*/commits/*"
+			],
 			"css": ["styles.css"],
-			"js": ["script.js"]
+			"js": ["common.js", "script-project.js"]
+		},
+		{
+			"matches": [
+				"https://github.com/*/*/pull/*/commits"
+			],
+			"css": ["styles.css"],
+			"js": ["common.js", "script-pr.js"]
 		}
 	],
 	"permissions" : [
 		"declarativeContent",
 		"tabs",
-		"https://github.com/*/commits/*"
+		"https://github.com/*"
 	],
 	"icons" : {
 		"19" : "icon-19.png",
