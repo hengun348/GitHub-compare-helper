@@ -7,10 +7,6 @@
 		"scripts": ["background.js"],
 		"persistent": false
 	},
-	"page_action" :
-	{
-		"default_icon" : "icon-19.png"
-	},
 	"permissions" : [
 		"tabs",
 		"https://github.com/*/commits/*"
