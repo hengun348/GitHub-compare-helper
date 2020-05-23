@@ -1,6 +1,6 @@
 {
 	"name": "GitHub compare helper",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Adds UI to GitHub commits pages to easier create GitHub compare urls",
 	"author": "Henrik Gunnarsson",
 	"background": {
