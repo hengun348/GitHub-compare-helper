@@ -11,22 +11,6 @@
 	{
 		"default_icon" : "icon-19.png"
 	},
-	"content_scripts": [
-		{
-			"matches": [
-				"https://github.com/*/commits/*"
-			],
-			"css": ["styles.css"],
-			"js": ["common.js", "script-project.js"]
-		},
-		{
-			"matches": [
-				"https://github.com/*/*/pull/*/commits"
-			],
-			"css": ["styles.css"],
-			"js": ["common.js", "script-pr.js"]
-		}
-	],
 	"permissions" : [
 		"declarativeContent",
 		"tabs",

@@ -3,30 +3,16 @@ var commitListItems,
 	githubCompareUrl,
 	lastIndexOfSelectedCheckboxes;
 
-function startPollingIfPageIsRendered(buttonDestinationClass, notificationDestinationClass) {
-	var commitsListIsVisible = !!Array.from(document.getElementsByClassName('commits-listing')).length;
 
+function drawElements(buttonDestinationClass, notificationDestinationClass) {
 	const buttonDestination = document.getElementsByClassName(buttonDestinationClass)[0];
 	const notificationDestination = document.getElementsByClassName(notificationDestinationClass)[0];
-	if(commitsListIsVisible) {
-		drawElements(buttonDestination, notificationDestination);
-	} else {
-		setTimeout(function() {
-            startPollingIfPageIsRendered(buttonDestinationClass, notificationDestinationClass);
-        }, 500);
-	}
-}
 
-function drawElements(buttonDestination, notificationDestination) {
 	commitListItems = Array.from(document.getElementsByClassName('commit'));
 
 	addGenerateCompareUrlButton(buttonDestination);
 	addNotificationContainer(notificationDestination);
 	addCheckboxes();
-}
-
-function extensionIsNotInitialized() {
-	return !document.getElementById('generate-compare-url-button');
 }
 
 function addGenerateCompareUrlButton(buttonDestination) {

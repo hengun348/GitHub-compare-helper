@@ -1,3 +1,1 @@
-if(extensionIsNotInitialized()) {
-    startPollingIfPageIsRendered('file-navigation', 'file-navigation');
-}
+drawElements('file-navigation', 'file-navigation');

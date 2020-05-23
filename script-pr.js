@@ -1,3 +1,1 @@
-if(extensionIsNotInitialized()) {
-    startPollingIfPageIsRendered('TableObject gh-header-meta', 'TableObject gh-header-meta');
-}
+drawElements('TableObject gh-header-meta', 'TableObject gh-header-meta');
