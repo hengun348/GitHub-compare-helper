@@ -9,6 +9,12 @@ At my work we use GitHubs compare feature quite a lot to make it easy for develo
 
 Therefore I made this extension that simplifies the task. Enjoy!
 
+NEW! Now also works on pull requests!
+
 ## Install
 
 <a href="https://chrome.google.com/webstore/detail/github-compare-helper/cioiakfpohjbldapjdenhmdenmdcdigd">Press here</a>
+
+## Credit
+
+Thanks <a href="https://github.com/acetrand">acetrand</a> and <a href="https://github.com/bradsk88">bradsk88</a> for pull request contributions!
