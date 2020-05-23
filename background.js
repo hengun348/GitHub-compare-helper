@@ -9,13 +9,11 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 
 function injectProjectScripts(tabId) {
-	chrome.tabs.executeScript(tabId, {file: "common.js"});
-	chrome.tabs.executeScript(tabId, {file: "script-project.js"});
+	chrome.tabs.executeScript(tabId, {file: "script.js"});
 	chrome.tabs.insertCSS(tabId, {file: "styles.css"});
 }
 
 function injectPullRequestScripts(tabId) {
-	chrome.tabs.executeScript(tabId, {file: "common.js"});
-	chrome.tabs.executeScript(tabId, {file: "script-pr.js"});
+	chrome.tabs.executeScript(tabId, {file: "script.js"});
 	chrome.tabs.insertCSS(tabId, {file: "styles.css"});
 }

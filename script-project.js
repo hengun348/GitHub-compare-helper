@@ -1,1 +1,0 @@
-drawElements('file-navigation');

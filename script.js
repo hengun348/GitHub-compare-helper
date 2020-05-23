@@ -1,9 +1,20 @@
+const isPullRequestPage = document.location.href.includes('/pull/') ? true : false;
 var commitListItems,
 	notificationElement,
 	githubCompareUrl,
 	lastIndexOfSelectedCheckboxes;
 
-function drawElements(buttonDestinationClass) {
+drawElements();
+
+function drawElements() {
+	let buttonDestinationClass;
+
+	if (isPullRequestPage) {
+		buttonDestinationClass = 'TableObject gh-header-meta';
+	} else {
+		buttonDestinationClass = 'file-navigation';
+	}
+
 	const buttonDestination = document.getElementsByClassName(buttonDestinationClass)[0];
 	commitListItems = Array.from(document.getElementsByClassName('commit'));
 
@@ -60,8 +71,7 @@ function addGenerateCompareUrlButton(buttonDestination) {
 		function baseCompareUrlFromCurrentCommitsUrl() {
 			let githubCommitsUrl,
 				repoUrl,
-				githubCompareUrlLastPart,
-				isPullRequestPage = document.location.href.includes('/pull/');
+				githubCompareUrlLastPart;
 			
 			if (isPullRequestPage) {
 				githubCompareUrlLastPart = '/compare/' + topSelectedCommitSHA + '...' + bottomSelectedCommitSHA;
