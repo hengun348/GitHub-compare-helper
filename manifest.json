@@ -13,7 +13,7 @@
 	},
 	"permissions" : [
 		"tabs",
-		"https://github.com/*"
+		"https://github.com/*/commits/*"
 	],
 	"icons" : {
 		"19" : "icon-19.png",
