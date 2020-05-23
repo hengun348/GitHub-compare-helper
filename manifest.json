@@ -12,7 +12,6 @@
 		"default_icon" : "icon-19.png"
 	},
 	"permissions" : [
-		"declarativeContent",
 		"tabs",
 		"https://github.com/*"
 	],
