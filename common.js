@@ -3,15 +3,11 @@ var commitListItems,
 	githubCompareUrl,
 	lastIndexOfSelectedCheckboxes;
 
-
-function drawElements(buttonDestinationClass, notificationDestinationClass) {
+function drawElements(buttonDestinationClass) {
 	const buttonDestination = document.getElementsByClassName(buttonDestinationClass)[0];
-	const notificationDestination = document.getElementsByClassName(notificationDestinationClass)[0];
-
 	commitListItems = Array.from(document.getElementsByClassName('commit'));
 
 	addGenerateCompareUrlButton(buttonDestination);
-	addNotificationContainer(notificationDestination);
 	addCheckboxes();
 }
 
@@ -38,12 +34,12 @@ function addGenerateCompareUrlButton(buttonDestination) {
 		selectedCheckboxes = getSelectedCheckboxes(checkboxes);
 
 		if(selectedCheckboxes.length === 0) {
-			showNotification('error', 'You have not selected any commits!');
+			alert('You have not selected any commits!');
 			return;
 		}
 
 		if(selectedCheckboxes.length === 1) {
-			showNotification('error', 'You have selected too few commits! Select 2 commits.');
+			alert('You have selected too few commits. Please select 2 commits.');
 			return;
 		}
 
@@ -51,13 +47,13 @@ function addGenerateCompareUrlButton(buttonDestination) {
 		secondSelectedCommitSHA = checkboxes[lastIndexOfSelectedCheckboxes].value;
 
 		if(!firstSelectedCommitSHA || !secondSelectedCommitSHA) {
-			showNotification('error', 'Could not find commits SHAs.');
+			alert('Could not find commits SHAs.');
 		}
 
 		githubCompareUrl = baseCompareUrlFromCurrentCommitsUrl();
 
 		if(!githubCompareUrl) {
-			showNotification('error', 'Could not generate compare url!');
+			alert('Could not generate compare url.');
 		}
 
 		function baseCompareUrlFromCurrentCommitsUrl() {
@@ -101,16 +97,11 @@ function getSelectedCheckboxes(checkboxes) {
 	}
 }
 
-function addNotificationContainer(notificationDestination) {
-	notificationElement = document.createElement('div');
-	notificationElement.id = 'compare-helper-notification';
-	notificationDestination.appendChild(notificationElement);
-}
 
 function addCheckboxes() {
 	commitListItems.forEach(appendCheckbox);
 
-	function appendCheckbox(listItem, index) {
+	function appendCheckbox(listItem) {
 		var sha,
 			checkbox;
 
@@ -177,14 +168,4 @@ function addCheckboxes() {
 			}
 		}
 	}
-}
-
-function showNotification(type, text) {
-	if(type === 'error') {
-		notificationElement.className = 'error';
-	} else {
-		notificationElement.className = 'success';
-	}
-
-	notificationElement.innerHTML = text;
 }
