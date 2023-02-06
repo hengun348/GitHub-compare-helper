@@ -16,7 +16,7 @@ function drawElements() {
 	}
 
 	const buttonDestination = document.getElementsByClassName(buttonDestinationClass)[0];
-	commitListItems = Array.from(document.getElementsByClassName('commit'));
+	commitListItems = Array.from(document.getElementsByClassName('js-commits-list-item'));
 
 	addGenerateCompareUrlButton(buttonDestination);
 	addCheckboxes();
@@ -116,12 +116,11 @@ function getSelectedCheckboxes(checkboxes) {
 
 function addCheckboxes() {
 	commitListItems.forEach(appendCheckbox);
-
 	function appendCheckbox(listItem) {
 		let sha,
 			checkbox;
 
-		sha = listItem.getElementsByClassName('sha')[0].text.trim();
+		sha = listItem.getAttribute('data-url').match(/[\da-f]{40}/);
 
 		checkbox = document.createElement('input');
 		checkbox.type = 'checkbox';

@@ -18,13 +18,15 @@
 	-ms-user-select: none;
 	user-select: none;
 	-webkit-appearance: none;
+	z-index: 9999;
 }
 
 .commit-compare-checkbox {
 	position: absolute;
-	left: 0;
+	left: -42px;
 	margin-top: 21px;
 	margin-left: 21px;
+	z-index: 9999;
 }
 
 .table-list {
